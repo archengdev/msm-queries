@@ -27,13 +27,29 @@ class MiscController < ApplicationController
 
   def actors
     @actor_list = Actor.all
-    render({ :template => "misc_template/actors"})
+    render({ :template => "misc_templates/actors"})
   end
 
   def actor_id
     @id = params.fetch("id")
     @actor = Actor.all.where({:id => @id})[0]
-    @films = Character.all.where({:actor_id => @id})
-    render({ :template => "misc_template/actor_id"})
+    chars = Character.all.where({:actor_id => @id})
+    films_id = []
+    chars.each do |ch|
+      fid = ch.movie_id
+      films_id.push(fid)
+    end
+    @films = Movie.all.where({:id => films_id})
+    render({ :template => "misc_templates/actor_id"})
   end
+
+  def youngest
+    @youngest = 1
+    render({ :template => "misc_templates/youngest"})
+  end
+  def oldest
+    @oldest = 1
+    render({ :template => "misc_templates/oldest"})
+  end
+
 end

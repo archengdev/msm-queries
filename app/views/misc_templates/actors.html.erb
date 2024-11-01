@@ -26,26 +26,26 @@
     </th>
   </tr>
 
-<% %>
+<% @actor_list.each do |actor| %>
   <tr>
     <td>
-      504
+      <%= actor.id%>
     </td>
 
     <td>
-      <img src="https://image.tmdb.org/t/p/w500/hsCu1JUzQQ4pl7uFxAVFLOs9yHh.jpg" style="width:250px;">
+      <img src="<%= actor.image%>" style="width:250px;">
     </td>
 
     <td>
-      Tim Robbins
+      <%= actor.name%>
     </td>
 
     <td>
-      1958-10-16
+      <%= actor.dob%>
     </td>
 
     <td>
-      <a href="/actors/504">
+      <a href="/actors/<%= actor.id%>">
         Show details
       </a>
     </td>
