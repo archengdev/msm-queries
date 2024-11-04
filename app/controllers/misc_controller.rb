@@ -33,22 +33,16 @@ class MiscController < ApplicationController
   def actor_id
     @id = params.fetch("id")
     @actor = Actor.all.where({:id => @id})[0]
-    chars = Character.all.where({:actor_id => @id})
-    films_id = []
-    chars.each do |ch|
-      fid = ch.movie_id
-      films_id.push(fid)
-    end
-    @films = Movie.all.where({:id => films_id})
+    @chars = Character.all.where({:actor_id => @id})
     render({ :template => "misc_templates/actor_id"})
   end
 
   def youngest
-    @youngest = 1
+    @dir = Director.where.not({ :dob => nil }).order({ :dob => :desc})[0]
     render({ :template => "misc_templates/youngest"})
   end
   def oldest
-    @oldest = 1
+    @dir = Director.where.not({ :dob => nil }).order({ :dob => :asc})[0]
     render({ :template => "misc_templates/oldest"})
   end
 
